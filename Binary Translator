@@ -1,0 +1,144 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+/*
+ * Binary Translator
+ * Author: Finn McKinley
+ * 9/10/2018
+ */
+public class BinaryTranslator 
+{
+	public BinaryTranslator() 
+	{
+		System.out.println("Please enter \"file\" to enter a file or \"input\" to use the console.");
+		//Choose between a file and the console
+		Scanner scanner = new Scanner(System.in);
+		//Set up the first scanner
+		String input = scanner.nextLine();
+		//Get input
+		String numberInput = "";
+		if (input.equals("file")) 
+		{//Input from a file
+			try 
+			{
+				System.out.println("Enter your file name.");
+				//Enter file name
+				input = scanner.nextLine();
+				//Read input
+				Scanner fileScanner = new Scanner(new File(input));
+				//New scanner to read file
+				System.out.println("If you are translating from decimal to binary, type \"dtb\".");
+				//Ask if translating from decimal to binary
+				System.out.println("If you are translating from binary to decimal, type \"btd\".");
+				//Ask if translating from binary to decimal
+				input = scanner.nextLine();
+				//Check next line
+				if (input.equals("dtb")) 
+				{//decimal to binary
+					input = fileScanner.nextLine();
+					//Checks number from file
+					int number = Integer.parseInt(input);
+					String answer = "";
+					while(number > 0)
+					//While given value is greater than 0
+					{
+						if (number % 2 == 1)
+						//If the value is odd
+						{
+							answer = "1" + answer;
+							//Add a 1 to the output number
+						}
+						else if (number % 2 == 0)
+						//If the value is even
+						{
+							answer = "0" + answer;
+							//Add a 0 to the output number
+						}
+						number = number / 2;
+						//Divide the value by 2
+					}
+					if(number == 0)
+					{
+						System.out.println(answer);
+						//Print out the answer
+						answer += 1;
+					}
+				}
+				else 
+				{//binary to decimal
+					String n=fileScanner.nextLine();
+					//Read input from file
+			        System.out.println(Integer.parseInt(n,2));
+					/*I copied this section from thecrazyprogrammer/
+					  URL: https://www.thecrazyprogrammer.com/2015/11/program-to-convert-binary-to-decimal-in-java.html
+					  It checks the given binary number and changes it to base 10*/
+				}
+			} catch (IOException ex)
+			  //If the file isn't found give an error
+			{
+				System.out.println("File not found.");
+				scanner.close();
+				//Close the scanner
+				System.exit(1);
+				//exit the code
+			}
+		}
+		else
+		{//Input from the console
+			System.out.println("If you are translating from decimal to binary, type \"dtb\".");
+			//Ask if translating from decimal to binary
+			System.out.println("If you are translating from binary to decimal, type \"btd\".");
+			//Ask if translating from binary to decimal
+			input = scanner.nextLine();
+			//Check next line
+			if (input.equals("dtb")) 
+			{//decimal to binary
+				System.out.println("Enter your number");
+				//Tells user to enter number
+				input = scanner.nextLine();
+				//Checks input
+				int number = Integer.parseInt(input);
+				String answer = "";
+				while(number > 0)
+				//While given value is greater than 0
+				{
+					if (number % 2 == 1)
+					//If the value is odd
+					{
+						answer = "1" + answer;
+						//Add a 1 to the output number
+					}
+					else if (number % 2 == 0)
+					//If the value is even
+					{
+						answer = "0" + answer;
+						//Add a 0 to the output number
+					}
+					number = number / 2;
+					//Divide the value by 2
+				}
+				if(number == 0)
+				{
+					System.out.println(answer);
+					answer += 1;
+				}
+			}
+			else 
+			{//binary to decimal
+				System.out.println("Enter your binary number");
+				String answer = "";
+		        String n=scanner.nextLine();
+		        System.out.println(Integer.parseInt(n,2));
+				/*I copied this section from thecrazyprogrammer/
+				  URL: https://www.thecrazyprogrammer.com/2015/11/program-to-convert-binary-to-decimal-in-java.html
+				  It checks the given binary number and changes it to base 10*/
+			}
+		}
+	}
+		//scanner.close();
+		//Close the scanner
+	public static void main(String[] args) 
+	{
+		new BinaryTranslator();
+	}
+}
